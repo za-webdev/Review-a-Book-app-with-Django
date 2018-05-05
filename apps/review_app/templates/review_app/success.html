@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Success page</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Boogaloo" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<style>
+
+		.main{
+			display: flex;
+			background-color: #f1f4f8;
+		}
+
+		.welcome_box{
+			margin-left: 50px;
+			width:40%;
+
+		}
+
+		.outer_box{
+			margin-left:25%;
+		}
+		.book_box{
+			overflow-y: scroll;
+			height: 300px;
+			margin-bottom:50%;
+			width:200px;
+			border: black solid 2px;
+			text-align: center
+		}
+		.top{
+			margin-left: 80%;
+		}
+		span{
+			font-family: Boogaloo, cursive;
+			font-size: 30px;
+		}
+		.heading{
+			font-family: 'Acme', sans-serif;
+		}
+		h3{
+			font-family: Boogaloo, cursive;
+		}
+		#stars{
+			color: yellow;
+		}
+
+	</style>
+</head>
+<body>
+		<div class="top">
+			<a href="/my_book/{{user.id}}">Add a Book and a review</a><br>
+			<a href="/logout">Logout</a>
+		</div>
+	<div class="main">
+		<div class="welcome_box">
+			<h3>Welcome: {{user.username}}!</h3>
+			<h1 class="heading"> Recent Book Reviews:</h1>
+			<ul>
+				{% for review in current_reviews%}
+					<p><span><a href="/book_info/{{review.book_id}}">{{review.title}}</span></a></p>
+					<p>Rating:<span id="stars">{{review.stars}}</span></p>
+					<p><a href="/user_info/{{review.user_id}}"">{{review.reviewer}}</a>: {{review.review}}</p>
+
+					{%if review.user_id == request.session.user_id%}
+					<button class="btn btn-light"><a href="/delete/{{review.id}}"> Delete this Review</a></button>
+
+					{%endif%}		
+				{%endfor%}
+			</ul> 	
+			
+		</div>
+			<div class="outer_box">
+
+				<h1 class="heading">Other books</h1>
+				<div class="book_box">
+					{%for book in all_books%}
+						<p><a href="/book_info/{{book.id}}">{{book.title}}</a></p>
+					{%endfor%}
+				</div>
+			</div>
+		</div>
+
+
+
+
+</body>
+</html>

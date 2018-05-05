@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User info</title>
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Boogaloo" rel="stylesheet">
+	<style>
+		.main{
+			background-color:#f1f4f8;
+		}
+		span{
+			font-family: 'Acme', sans-serif;
+		}
+		#book_name{
+			font-family: Boogaloo, cursive;
+			font-size: 20px;
+		}
+		#logout{
+			margin-left: 80%;
+		}
+
+	</style>
+</head>
+<body>
+	<a href="/logout" id="logout">Logout</a>
+	<div class="main">
+		<h1> User:<span>{{users.username}}</span></h1>
+		<h3>Email:{{users.email}}</h3>
+		<p>Total reviews: {{your_reviews|length}}</p>
+		<h3>Posted reviews on the following Books</h3>
+		<ul>
+			{%for review in your_reviews%}
+			
+				<li><a href="/book_info/{{review.book.id}}"><span id="book_name">{{review.book.title}}</span></a></li>
+			
+			
+			{%endfor%}
+		</ul>
+	</div>
+
+	
+		
+
+</body>
+</html>

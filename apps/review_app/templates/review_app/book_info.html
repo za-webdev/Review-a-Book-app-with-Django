@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Book information</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<style>
+		span{
+			font-family: 'Acme', sans-serif;
+		}
+		#main{
+			margin: 30px;
+			background-color:#f1f4f8;
+		}
+		#logout{
+			margin-left: 80%;
+		}
+		#outer_box{
+			background-color:#f1f4f8;
+		}
+		.custom-select{
+			width:80px;
+		}
+	</style>
+</head>
+<body>
+	<div id="logout">
+		<a href="/logout">Logout</a>
+		<a href="/success">Dashboard</a>
+	</div>
+	<div id="outer_box">
+		<div id="main">
+
+			<h1> Book title: <span>{{book.title}}</span></h1>
+			<h2> Author: {{book.author}}</h2>
+			{%for review in this_book%}
+				
+				<p><a href="/user_info/{{review.user.id}}">{{review.user.username}}</a> says: {{review.review}} </p>
+			{%endfor%}
+
+			<form action="/add_review/{{book.id}}" method="post">
+				{%csrf_token%}
+				<label>Review:</label><br>
+				<textarea rows="6" cols="50" name="review" ></textarea><br>
+				Rating:<select name="rating" class="custom-select mr-sm-2" >
+		            <option value="1">1</option>
+		            <option value="2">2</option>
+		            <option value="3">3</option>
+		            <option value="4">4</option>
+		            <option selected="selected" value="5">5</option>
+		            </select> stars <br>
+				<input type="submit" value="Submit Review" class="btn btn-primary">
+				
+			</form>
+		</div>
+		
+
+				{% if messages %}
+					<ul class="messages">
+					    {% for message in messages %}
+					    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					    {% endfor %}
+					</ul>
+				{% endif %}
+
+	</div>
+
+	
+</body>
+</html>

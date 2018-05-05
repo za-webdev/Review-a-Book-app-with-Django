@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add a new Book</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
+	<style>
+
+		#outer_box{
+			background-color:#f1f4f8;
+		}
+		.top-form{
+			width: 30%;
+			margin-left: 30%;
+			
+		}
+		h1{
+			margin: 30px;
+			font-family: 'Acme', sans-serif;
+		}
+		#logout{
+			margin-left: 60%;
+		}
+		.btn{
+			margin: 20px;
+		}
+		.custom-select{
+			width: 80px;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Add a New Book Title and a Review</h1>
+	<div id="outer_box">
+		<div class="top-form">
+			<form action="/add_book/{{id}}" method="POST">
+				{%csrf_token%}
+				<div  class="form-group">
+					<label>Book Title:</label>
+					<input type="text" name="title" class="form-control form-control-sm"><br>
+				</div>
+				<div  class="form-group">
+					<label>Author:</label>
+					<input type="text" name="author" class="form-control form-control-sm"><br>
+				</div>
+				<div  class="form-group">
+					<label>Review:</label><br>
+					<textarea name="review" class="form-control" ></textarea><br>
+				</div>
+				<label>Rating:</label><br>
+				<select name="rating" class="custom-select mr-sm-2" >
+		            <option value="1">1</option>
+		            <option value="2">2</option>
+		            <option value="3">3</option>
+		            <option value="4">4</option>
+		            <option  selected="selected" value="5">5</option>
+		            </select>stars<br>
+
+				<input type="submit" value="submit" class="btn btn-primary">
+			</form>
+		</div>
+		<div id="logout">
+			<button><a href="/logout">Logout</a></button>
+		</div>
+	</div>
+	
+		{% if messages %}
+				<ul class="messages">
+				    {% for message in messages %}
+				    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				    {% endfor %}
+				</ul>
+			{% endif %}
+
+</body>
+</html> 
